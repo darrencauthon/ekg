@@ -6,11 +6,11 @@ require 'ekg/version'
 Gem::Specification.new do |spec|
   spec.name          = "ekg"
   spec.version       = Ekg::VERSION
-  spec.authors       = ["Ferris Lucas"]
-  spec.email         = ["ferris.lucas@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.authors       = ["Darren Cauthon", "Ferris Lucas"]
+  spec.email         = ["darren@cauthon.com"]
+  spec.description   = "Monitor the heartbeat of your app"
+  spec.summary       = "Monitor the heartbeat of your app"
+  spec.homepage      = "https://github.com/darrencauthon/ekg"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
