@@ -1,4 +1,5 @@
 # EKG
+[![Coverage Status](https://coveralls.io/repos/darrencauthon/ekg/badge.png?branch=master)](https://coveralls.io/r/darrencauthon/ekg?branch=master)
 
 ## Installation
 
