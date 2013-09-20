@@ -1,4 +1,4 @@
-# EKG
+# EKG [![Build Status](https://secure.travis-ci.org/darrencauthon/ekg.png?branch=master)](http://travis-ci.org/darrencauthon/ekg)
 [![Coverage Status](https://coveralls.io/repos/darrencauthon/ekg/badge.png?branch=master)](https://coveralls.io/r/darrencauthon/ekg?branch=master)
 
 ## Installation
