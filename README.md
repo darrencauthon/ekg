@@ -1,6 +1,4 @@
-# Ekg
-
-TODO: Write a gem description
+# EKG
 
 ## Installation
 
