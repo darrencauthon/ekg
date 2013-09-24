@@ -17,7 +17,7 @@ describe Ekg::Data do
         to_return { |request| request_body = request.body; {body: ''} }
       Ekg::Data.send_data({name: 'testing', some: 'data', and: 'more'})
 
-      request_body.must_equal "{ \"name\": \"testing\", \"some\": \"data\", \"and\": \"more\" }"
+      request_body.must_equal "{\"name\":\"testing\",\"some\":\"data\",\"and\":\"more\"}"
     end
   end
 

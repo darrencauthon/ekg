@@ -8,8 +8,7 @@ module Ekg
 
       def send_data(data)
         name = data[:name]
-        body = build_the_body_from_the data
-        send_the_body name, body
+        send_the_body name, data.to_json
       end
 
       def receive_data
@@ -17,12 +16,7 @@ module Ekg
         JSON.parse(response.body).map { |x| x[1] }
       end
 
-
       private
-
-      def build_the_body_from_the(data)
-        '{ ' + data.map { |item| "\"#{item[0]}\": \"#{item[1]}\"" }.join(', ') + ' }'
-      end
 
       def send_the_body(name, body)
         connection.patch do |req|
