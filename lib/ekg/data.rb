@@ -3,7 +3,9 @@ require 'json'
 
 module Ekg
   class Data
+
     class << self
+
       def send_data(data)
         name = data[:name]
         body = build_the_body_from_the data
@@ -16,9 +18,8 @@ module Ekg
           faraday.response :logger
           faraday.adapter  Faraday.default_adapter
         end
-        response = connection.get do |req|
-                                    req.url "/heartbeats.json"
-                                  end
+
+        response = connection.get { |req| req.url("/heartbeats.json") }
         JSON.parse(response.body).map { |x| x[1] }
       end
 
