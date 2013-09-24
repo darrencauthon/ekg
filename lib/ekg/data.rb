@@ -25,10 +25,10 @@ module Ekg
       end
 
       def send_the_body(name, body)
-        response = connection.patch do |req|
-                                      req.url "/heartbeats/#{name}.json"
-                                      req.body = body
-                                    end
+        connection.patch do |req|
+                           req.url "/heartbeats/#{name}.json"
+                           req.body = body
+                         end
       end
 
       def connection
