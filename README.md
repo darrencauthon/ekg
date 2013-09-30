@@ -17,7 +17,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+1. Provide some setup.
+
+````
+Ekg.config = { name: 'YOUR APP NAME',
+               firebase_url: 'https://YOURDB.firebaseio.com' }
+
+````
+
+2. Call "lub_dub" whenever you want to fire a note that your app is alive.
+
+````
+Ekg.lub_dub
+````
+
+3. Check your firebase database.  You'll find that a note in /heartbeats will be updated with the current timestamp.
 
 ## Contributing
 
