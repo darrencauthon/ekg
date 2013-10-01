@@ -68,7 +68,65 @@ describe Ekg do
         it "should return the difference in seconds" do
           Ekg.time_since_last_heartbeat.must_equal test.seconds_ago
         end
+      end
 
+      describe "when no matching heartbeat exists" do
+        before do
+
+          Timecop.freeze Time.parse(test.now)
+
+          Ekg.config = {
+                         name: test.name,
+                       }
+
+          sample_data = [ { 'name' => 'first', 
+                            'time' => (Time.now - test.seconds_ago + 5).to_s },
+                          { 'name' => 'second', 
+                            'time' => (Time.now - test.seconds_ago).to_s },
+                          { 'name' => 'last', 
+                            'time' => (Time.now - test.seconds_ago + 10).to_s } ]
+          sample_data.each.map { |x, i| [x, i] }.sort_by { |x| x[1] }.map { |x| x[0] }
+          Ekg::Data.stubs(:receive_data).returns(sample_data)
+        end
+
+        it "should return nil" do
+          Ekg.time_since_last_heartbeat.nil?.must_equal true
+        end
+      end
+
+      describe "when no heartbeat exists" do
+        before do
+
+          Timecop.freeze Time.parse(test.now)
+
+          Ekg.config = {
+                         name: test.name,
+                       }
+
+          sample_data = []
+          Ekg::Data.stubs(:receive_data).returns(sample_data)
+        end
+
+        it "should return nil" do
+          Ekg.time_since_last_heartbeat.nil?.must_equal true
+        end
+      end
+
+      describe "when the web call fails" do
+        before do
+
+          Timecop.freeze Time.parse(test.now)
+
+          Ekg.config = {
+                         name: test.name,
+                       }
+
+          Ekg::Data.stubs(:receive_data).raises 'k'
+        end
+
+        it "should return nil" do
+          Ekg.time_since_last_heartbeat.nil?.must_equal true
+        end
       end
     end
   end
