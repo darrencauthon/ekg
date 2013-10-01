@@ -1,3 +1,4 @@
+require 'time'
 Dir[File.dirname(__FILE__) + '/ekg/*.rb'].each {|file| require file }
 
 module Ekg
