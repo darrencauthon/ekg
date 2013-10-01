@@ -13,6 +13,11 @@ module Ekg
     rescue
     end
 
+    def time_since_last_heartbeat
+      data = Ekg::Data.receive_data
+      Time.now - Time.parse(data[0]['time'])
+    end
+
   end
 
 end
