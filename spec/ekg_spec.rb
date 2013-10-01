@@ -40,9 +40,11 @@ describe Ekg do
   end
 
   describe "time_since_last_heartbeat" do
-    [:now, :seconds_ago].to_objects { [
-      ["2013-09-30 21:53:56 -0500", 1],
-      ["2012-09-30 20:50:00 -0600", 2]
+    [:now, :seconds_ago, :expected_index, :name].to_objects { [
+      ["2013-09-30 21:53:56 -0500", 1, 0, 'test'],
+      ["2013-09-30 21:53:56 -0500", 1, 1, 'test'],
+      ["2013-09-30 21:53:56 -0500", 1, 2, 'test'],
+      ["2012-09-30 20:50:00 -0600", 2, 1, 'another']
     ] }.each do |test|
       describe "when the heartbeat was seconds ago" do
         before do
@@ -50,12 +52,17 @@ describe Ekg do
           Timecop.freeze Time.parse(test.now)
 
           Ekg.config = {
-                         name: 'test',
+                         name: test.name,
                        }
 
-          Ekg::Data.stubs(:receive_data)
-                   .returns([ { 'name' => 'test', 
-                                'time' => (Time.now - test.seconds_ago).to_s } ])
+          sample_data = [ { 'name' => 'first', 
+                            'time' => (Time.now - test.seconds_ago + 5).to_s },
+                          { 'name' => test.name, 
+                            'time' => (Time.now - test.seconds_ago).to_s },
+                          { 'name' => 'last', 
+                            'time' => (Time.now - test.seconds_ago + 10).to_s } ]
+          sample_data.each.map { |x, i| [x, i] }.sort_by { |x| x[1] }.map { |x| x[0] }
+          Ekg::Data.stubs(:receive_data).returns(sample_data)
         end
 
         it "should return the difference in seconds" do

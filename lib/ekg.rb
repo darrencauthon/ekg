@@ -14,8 +14,9 @@ module Ekg
     end
 
     def time_since_last_heartbeat
-      data = Ekg::Data.receive_data
-      Time.now - Time.parse(data[0]['time'])
+      records = Ekg::Data.receive_data
+      record = records.select { |x| x['name'] == Ekg.config[:name] }[0]
+      Time.now - Time.parse(record['time'])
     end
 
   end
