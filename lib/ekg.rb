@@ -14,13 +14,21 @@ module Ekg
     end
 
     def time_since_last_heartbeat
-      records = Ekg::Data.receive_data
-      record = records.select { |x| x['name'] == Ekg.config[:name] }.first
-      Time.now - Time.parse(record['time'])
+      return nil unless time = the_last_heartbeat_time
+      Time.now - time
+    end
+
+    private
+
+    def the_last_heartbeat_time
+      Time.parse the_last_heartbeat_record['time']
     rescue
       nil
     end
 
+    def the_last_heartbeat_record
+      records = Ekg::Data.receive_data
+      records.select { |x| x['name'] == Ekg.config[:name] }.first
+    end
   end
-
 end
